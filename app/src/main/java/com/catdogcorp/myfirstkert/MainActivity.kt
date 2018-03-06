@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun newGame() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         TODO("stoptimer")
         TODO("reload game")
     }
@@ -32,14 +31,14 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.inTransaction {
             add(R.id.main_fragment,  MainFragment.newInstance())
         }
-
     }
 
     // FragmentManager attachment.
-    inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> Unit) {
-        val fragmentTransaction = beginTransaction()
-        fragmentTransaction.func()
-        fragmentTransaction.commit()
+    inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> FragmentTransaction) {
+        //val fragmentTransaction = beginTransaction()
+        //fragmentTransaction.func()
+        //fragmentTransaction.commit()
+        beginTransaction().func().commit()
     }
 
 
