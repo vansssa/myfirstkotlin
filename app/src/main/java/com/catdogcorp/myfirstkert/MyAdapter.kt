@@ -11,19 +11,20 @@ import android.view.ViewGroup
  */
 class MyAdapter (var context: Context, var dataList: ArrayList<Int>,  var number: Int) : RecyclerView.Adapter<MyHolder>() {
 
-
+    var firstDataList : ArrayList<Int> = ArrayList(dataList.subList(0 ,number*number))
+    var secondDataList : ArrayList<Int> = ArrayList(dataList.subList(number*number,dataList.size))
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MyHolder {
         val v : View = LayoutInflater.from(parent!!.context).inflate(R.layout.num_item, parent, false)
-        return MyHolder(v, dataList)
+        return MyHolder(v, secondDataList)
     }
 
     override fun onBindViewHolder(holder: MyHolder?, position: Int) {
-       holder!!.initContent(dataList.get(position))
+       holder!!.initContent(firstDataList.get(position))
     }
 
     override fun getItemCount(): Int {
-        return dataList.size
+        return firstDataList.size
     }
 
 

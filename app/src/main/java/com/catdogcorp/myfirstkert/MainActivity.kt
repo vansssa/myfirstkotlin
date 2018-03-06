@@ -22,8 +22,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun newGame() {
-        TODO("stoptimer")
-        TODO("reload game")
+        //TODO: "stop timer"
+        //TODO: "reload game"
     }
 
     override fun onResume() {
