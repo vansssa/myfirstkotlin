@@ -8,10 +8,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.main_fragment.*
 
 
-
-class MainFragment : Fragment() {
+class MainFragment : Fragment(),MainFragmentView, MyHolder.callback {
 
     private var myAdapter: MyAdapter? = null
     private var recyclerView: RecyclerView? = null
@@ -35,6 +35,7 @@ class MainFragment : Fragment() {
 
     private fun initRecyclerView() {
         myAdapter = MyAdapter(context, presenter!!.getRandomData(), presenter!!.numberOfColumns )
+        myAdapter!!.setCallback(this)
         recyclerView!!.adapter = myAdapter
         recyclerView!!.layoutManager = GridLayoutManager(activity, presenter!!.numberOfColumns)
     }
@@ -65,5 +66,24 @@ class MainFragment : Fragment() {
             val fragment = MainFragment()
             return fragment
         }
+    }
+
+    override fun onItemClickListener(num: Int) {
+        showHint(num)
+    }
+
+    override fun newGame() {
+        initRecyclerView()
+        showHint(1)
+        showResult(0)
+
+    }
+
+    override fun showResult(num : Int) {
+        tx_timers.text = num.toString()
+    }
+
+    override fun showHint(num : Int) {
+        tx_hint.text = num.toString()
     }
 }// Required empty public constructor

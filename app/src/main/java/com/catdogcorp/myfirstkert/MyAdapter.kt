@@ -16,7 +16,7 @@ class MyAdapter (var context: Context, var dataList: ArrayList<Int>,  var number
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MyHolder {
         val v : View = LayoutInflater.from(parent!!.context).inflate(R.layout.num_item, parent, false)
-        return MyHolder(v, secondDataList)
+        return MyHolder(v, secondDataList, callback)
     }
 
     override fun onBindViewHolder(holder: MyHolder?, position: Int) {
@@ -25,6 +25,12 @@ class MyAdapter (var context: Context, var dataList: ArrayList<Int>,  var number
 
     override fun getItemCount(): Int {
         return firstDataList.size
+    }
+
+    private lateinit var callback: MyHolder.callback
+
+    fun setCallback(callback : MyHolder.callback) {
+        this.callback = callback
     }
 
 

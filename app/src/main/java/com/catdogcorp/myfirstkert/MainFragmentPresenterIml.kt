@@ -9,6 +9,7 @@ import java.util.*
 
 class MainFragmentPresenterIml : MainFragmentPresenter {
 
+
     val numberOfColumns : Int = 5
     val numberOfTotal : Int = 50
 

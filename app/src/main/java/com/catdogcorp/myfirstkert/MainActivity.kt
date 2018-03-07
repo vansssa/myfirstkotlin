@@ -10,26 +10,24 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var fragmentView: MainFragment
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-
+        fragmentView = MainFragment.newInstance()
         fab.setOnClickListener { view ->
-            newGame()
+            fragmentView.newGame()
         }
 
     }
 
-    private fun newGame() {
-        //TODO: "stop timer"
-        //TODO: "reload game"
-    }
 
     override fun onResume() {
         super.onResume()
         supportFragmentManager.inTransaction {
-            add(R.id.main_fragment,  MainFragment.newInstance())
+            add(R.id.main_fragment,  fragmentView)
         }
     }
 
