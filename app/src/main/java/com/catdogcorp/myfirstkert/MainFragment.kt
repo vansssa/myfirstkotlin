@@ -75,15 +75,19 @@ class MainFragment : Fragment(),MainFragmentView, MyHolder.callback {
     override fun newGame() {
         initRecyclerView()
         showHint(1)
-        showResult(0)
+        showTimer(0)
 
     }
 
-    override fun showResult(num : Int) {
+    override fun showTimer(num : Int) {
         tx_timers.text = num.toString()
     }
 
     override fun showHint(num : Int) {
         tx_hint.text = num.toString()
+    }
+
+    override fun showYourScore(num: Int) {
+        tx_result2.text = num.toString()
     }
 }// Required empty public constructor
