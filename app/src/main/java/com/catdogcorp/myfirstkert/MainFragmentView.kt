@@ -5,11 +5,13 @@ package com.catdogcorp.myfirstkert
  */
 interface MainFragmentView {
 
-    fun showTimer(num : Int)
+    fun showTimer(num : String)
 
     fun showHint(num : Int)
 
     fun newGame()
 
-    fun showYourScore(num: Int)
+    fun showYourScore(num: String)
+
+    fun resetUI()
 }

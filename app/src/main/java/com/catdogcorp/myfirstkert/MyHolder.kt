@@ -13,7 +13,7 @@ class MyHolder(itemView: View, nowData: ArrayList<Int>, leftData: ArrayList<Int>
     var nowData = nowData
     var hint_listener = hint_listener
 
-    // static var in kotlin
+    // static member/class in kotlin
     companion object {
         var nowNumber: Int = 1
         var steps : Int = 1
@@ -21,7 +21,6 @@ class MyHolder(itemView: View, nowData: ArrayList<Int>, leftData: ArrayList<Int>
 
     fun initContent(num: Int) {
         button.text = num.toString()
-        button.tag = num
         button.setOnClickListener {
             onNumberClicked()
         }
@@ -30,7 +29,7 @@ class MyHolder(itemView: View, nowData: ArrayList<Int>, leftData: ArrayList<Int>
     }
 
     private fun onNumberClicked() {
-        if( button.tag.toString() ==  nowNumber.toString()) {
+        if( button.text.toString() ==  nowNumber.toString()) {
             updateContent( nowNumber)
             steps ++
         }
@@ -40,8 +39,8 @@ class MyHolder(itemView: View, nowData: ArrayList<Int>, leftData: ArrayList<Int>
     private fun updateContent(num: Int?) {
 
         if (num != null) {
-            nowNumber = getRandomNam(num)
-            hint_listener.onItemClickListener(nowNumber)
+            nowNumber = getRandomNum(num)
+            hint_listener.onItemClickListener(nowNumber, steps)
 
             if (num > 25) {
                 button.setBackgroundResource(R.color.material_blue_grey_800)
@@ -50,14 +49,13 @@ class MyHolder(itemView: View, nowData: ArrayList<Int>, leftData: ArrayList<Int>
 
             } else {
                 button.text = leftData.get(num - 1).toString()
-                button.tag = leftData.get(num - 1).toString()
                 button.setBackgroundResource(R.color.material_deep_teal_500)
             }
 
         }
     }
 
-    fun getRandomNam(num : Int) : Int {
+    private fun getRandomNum(num : Int) : Int {
         var result : Int? = num
         if(steps < 25) {
             nowData.remove(num)
@@ -72,7 +70,7 @@ class MyHolder(itemView: View, nowData: ArrayList<Int>, leftData: ArrayList<Int>
     }
 
     interface callback {
-        fun onItemClickListener(num: Int)
+        fun onItemClickListener(num: Int , step: Int)
     }
 }
 

@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.main_fragment.*
 
 class MainFragment : Fragment(),MainFragmentView, MyHolder.callback {
 
+
     private var myAdapter: MyAdapter? = null
     private var recyclerView: RecyclerView? = null
     private var presenter : MainFragmentPresenterIml? = null
@@ -20,7 +21,7 @@ class MainFragment : Fragment(),MainFragmentView, MyHolder.callback {
     // TODO: Rename and change types of parameters
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        presenter = MainFragmentPresenterIml()
+        presenter = MainFragmentPresenterIml(this)
         super.onCreate(savedInstanceState)
     }
 
@@ -63,31 +64,45 @@ class MainFragment : Fragment(),MainFragmentView, MyHolder.callback {
         // TODO: Rename parameter arguments, choose names that match
         // TODO: Rename and change types and number of parameters
         fun newInstance(): MainFragment {
-            val fragment = MainFragment()
-            return fragment
+            return MainFragment()
         }
     }
 
-    override fun onItemClickListener(num: Int) {
+    override fun onItemClickListener(num: Int , steps : Int) {
         showHint(num)
+        if (steps == 1) {
+            presenter!!.startTimer()
+        }
+
+        if (steps == 50) {
+            presenter!!.stopTimer()
+            showYourScore(presenter!!.getGameResult())
+        }
     }
 
     override fun newGame() {
         initRecyclerView()
-        showHint(1)
-        showTimer(0)
-
+        resetUI()
+        presenter!!.stopTimer()
     }
 
-    override fun showTimer(num : Int) {
-        tx_timers.text = num.toString()
+    override fun showTimer(result : String) {
+        tx_timers.text = result
     }
 
     override fun showHint(num : Int) {
         tx_hint.text = num.toString()
     }
 
-    override fun showYourScore(num: Int) {
-        tx_result2.text = num.toString()
+    override fun showYourScore(num: String) {
+        tx_result2.visibility = View.VISIBLE
+        tx_result2.text = tx_result2.text.toString() + num
+    }
+
+    override fun resetUI() {
+        showHint(1)
+        showTimer("0:0")
+        tx_result2.visibility = View.INVISIBLE
+
     }
 }// Required empty public constructor
