@@ -4,11 +4,6 @@ import android.os.Handler
 import android.os.Message
 import java.util.*
 
-/**
- * Created by vanessatsai on 2018/3/6.
- */
-
-
 class MainFragmentPresenterIml(mainFragment : MainFragment) : MainFragmentPresenter {
 
 

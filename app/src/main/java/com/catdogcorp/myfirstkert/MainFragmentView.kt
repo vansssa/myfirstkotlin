@@ -1,8 +1,5 @@
 package com.catdogcorp.myfirstkert
 
-/**
- * Created by vanessatsai on 2018/3/7.
- */
 interface MainFragmentView {
 
     fun showTimer(num : String)

@@ -6,9 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-/**
- * Created by vanessatsai on 2018/3/5.
- */
 class MyAdapter (var context: Context, var dataList: ArrayList<Int>,  var number: Int) : RecyclerView.Adapter<MyHolder>() {
 
     var firstDataList : ArrayList<Int> = ArrayList(dataList.subList(0 ,number*number))
