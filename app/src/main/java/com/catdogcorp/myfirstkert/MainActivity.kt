@@ -17,16 +17,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        SqlScoutServer.create(this, packageName);
+        SqlScoutServer.create(this, packageName)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         fragmentView = MainFragment.newInstance()
         fab.setOnClickListener {
             fragmentView.newGame()
         }
-
-
-
     }
 
 
@@ -42,7 +39,8 @@ class MainActivity : AppCompatActivity() {
         //val fragmentTransaction = beginTransaction()
         //fragmentTransaction.func()
         //fragmentTransaction.commit()
-        beginTransaction().func().commit()
+        if (!fragmentView.isAdded)
+            beginTransaction().func().commit()
     }
 
 
