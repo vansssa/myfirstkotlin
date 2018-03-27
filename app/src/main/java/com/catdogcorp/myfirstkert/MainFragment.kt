@@ -1,5 +1,6 @@
 package com.catdogcorp.myfirstkert
 
+import android.arch.persistence.room.Room
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -8,7 +9,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.catdogcorp.myfirstkert.db.History
+import com.catdogcorp.myfirstkert.db.HistoryDataBase
 import kotlinx.android.synthetic.main.main_fragment.*
+import java.util.*
 
 
 class MainFragment : Fragment(),MainFragmentView, MyHolder.callback {
@@ -17,12 +21,18 @@ class MainFragment : Fragment(),MainFragmentView, MyHolder.callback {
     private var myAdapter: MyAdapter? = null
     private var recyclerView: RecyclerView? = null
     private var presenter : MainFragmentPresenterIml? = null
+    private lateinit var database: HistoryDataBase
 
     // TODO: Rename and change types of parameters
 
     override fun onCreate(savedInstanceState: Bundle?) {
         presenter = MainFragmentPresenterIml(this)
         super.onCreate(savedInstanceState)
+
+        database = Room.databaseBuilder(context,
+                HistoryDataBase::class.java, "scores.db")
+                .allowMainThreadQueries()
+                .build()
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -68,15 +78,16 @@ class MainFragment : Fragment(),MainFragmentView, MyHolder.callback {
         }
     }
 
-    override fun onItemClickListener(num: Int , steps : Int) {
+    override fun onItemClickListener(num: Int, step: Int) {
         showHint(num)
-        if (steps == 1) {
+        if (step == 1) {
             presenter!!.startTimer()
         }
 
-        if (steps == 50) {
+        if (step == 50) {
             presenter!!.stopTimer()
             showYourScore(presenter!!.getGameResult())
+            database.HistoryDAO().updateScores(History(database.HistoryDAO().getScoreList().size+ 1, Date().toString(), presenter!!.getGameResult()))
         }
     }
 
@@ -86,8 +97,8 @@ class MainFragment : Fragment(),MainFragmentView, MyHolder.callback {
         presenter!!.stopTimer()
     }
 
-    override fun showTimer(result : String) {
-        tx_timers.text = result
+    override fun showTimer(num: String) {
+        tx_timers.text = num
     }
 
     override fun showHint(num : Int) {

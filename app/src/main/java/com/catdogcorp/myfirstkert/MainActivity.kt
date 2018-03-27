@@ -6,7 +6,10 @@ import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.idescout.sql.SqlScoutServer
 import kotlinx.android.synthetic.main.activity_main.*
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,12 +17,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        SqlScoutServer.create(this, packageName);
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         fragmentView = MainFragment.newInstance()
-        fab.setOnClickListener { view ->
+        fab.setOnClickListener {
             fragmentView.newGame()
         }
+
+
 
     }
 
