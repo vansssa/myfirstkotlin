@@ -14,6 +14,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     lateinit var fragmentView: MainFragment
+    lateinit var historyFragment: HistoryFragment
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         fragmentView = MainFragment.newInstance()
+        historyFragment = HistoryFragment.newInstance()
         fab.setOnClickListener {
             fragmentView.newGame()
         }
@@ -29,8 +32,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        supportFragmentManager.inTransaction {
-            add(R.id.main_fragment,  fragmentView)
+        if (!fragmentView.isAdded) {
+            supportFragmentManager.inTransaction {
+                add(R.id.main_fragment, fragmentView, "mainFragment")
+            }
         }
     }
 
@@ -39,10 +44,8 @@ class MainActivity : AppCompatActivity() {
         //val fragmentTransaction = beginTransaction()
         //fragmentTransaction.func()
         //fragmentTransaction.commit()
-        if (!fragmentView.isAdded)
-            beginTransaction().func().commit()
+        beginTransaction().func().commit()
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -55,8 +58,21 @@ class MainActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_history -> true
+
+            R.id.action_history -> {
+                launchHistoryFragment()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun launchHistoryFragment() {
+        supportFragmentManager.inTransaction {
+            if(fragmentView.isAdded)
+                hide(fragmentView)
+            add(R.id.main_fragment,  historyFragment , "HistoryFragment")
+
         }
     }
 }
