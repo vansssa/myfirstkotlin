@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.Button
 import java.util.*
 
-class MyHolder(itemView: View, nowData: ArrayList<Int>, leftData: ArrayList<Int>, hint_listener: callback) : RecyclerView.ViewHolder(itemView) {
+class MainHolder(itemView: View, nowData: ArrayList<Int>, leftData: ArrayList<Int>, hint_listener: callback) : RecyclerView.ViewHolder(itemView) {
 
     var button: Button = itemView.findViewById(R.id.bt_number)
     var leftData = leftData

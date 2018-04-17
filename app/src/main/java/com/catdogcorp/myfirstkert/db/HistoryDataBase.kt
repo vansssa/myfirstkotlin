@@ -26,7 +26,11 @@ abstract class HistoryDataBase : RoomDatabase() {
         }
 
         fun destroyInstance() {
+            if(INSTANCE!=null)
+                INSTANCE!!.close()
+
             INSTANCE = null
+
         }
     }
 }

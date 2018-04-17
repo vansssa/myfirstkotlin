@@ -6,17 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-class MyAdapter (var context: Context, var dataList: ArrayList<Int>,  var number: Int) : RecyclerView.Adapter<MyHolder>() {
+class MainAdapter (var context: Context, var dataList: ArrayList<Int>, var number: Int) : RecyclerView.Adapter<MainHolder>() {
 
     var firstDataList : ArrayList<Int> = ArrayList(dataList.subList(0 ,number*number))
     var secondDataList : ArrayList<Int> = ArrayList(dataList.subList(number*number,dataList.size))
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MyHolder {
-        val v : View = LayoutInflater.from(parent!!.context).inflate(R.layout.num_item, parent, false)
-        return MyHolder(v, firstDataList , secondDataList, callback)
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MainHolder {
+        val v : View = LayoutInflater.from(parent!!.context).inflate(R.layout.item_num, parent, false)
+        return MainHolder(v, firstDataList , secondDataList, callback)
     }
 
-    override fun onBindViewHolder(holder: MyHolder?, position: Int) {
+    override fun onBindViewHolder(holder: MainHolder?, position: Int) {
        holder!!.initContent(firstDataList.get(position))
     }
 
@@ -24,9 +24,9 @@ class MyAdapter (var context: Context, var dataList: ArrayList<Int>,  var number
         return firstDataList.size
     }
 
-    private lateinit var callback: MyHolder.callback
+    private lateinit var callback: MainHolder.callback
 
-    fun setCallback(callback : MyHolder.callback) {
+    fun setCallback(callback : MainHolder.callback) {
         this.callback = callback
     }
 

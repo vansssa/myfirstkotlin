@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import com.idescout.sql.SqlScoutServer
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -15,7 +16,6 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var fragmentView: MainFragment
     lateinit var historyFragment: HistoryFragment
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +68,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun launchHistoryFragment() {
+        fab.visibility = View.GONE
         supportFragmentManager.inTransaction {
             if(fragmentView.isAdded)
                 hide(fragmentView)

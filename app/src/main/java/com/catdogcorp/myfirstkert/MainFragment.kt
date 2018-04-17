@@ -15,10 +15,10 @@ import kotlinx.android.synthetic.main.main_fragment.*
 import java.util.*
 
 
-class MainFragment : Fragment(),MainFragmentView, MyHolder.callback {
+class MainFragment : Fragment(),MainFragmentView, MainHolder.callback {
 
 
-    private var myAdapter: MyAdapter? = null
+    private var mainAdapter: MainAdapter? = null
     private var recyclerView: RecyclerView? = null
     private var presenter : MainFragmentPresenterIml? = null
     private lateinit var database: HistoryDataBase
@@ -45,9 +45,9 @@ class MainFragment : Fragment(),MainFragmentView, MyHolder.callback {
     }
 
     private fun initRecyclerView() {
-        myAdapter = MyAdapter(context, presenter!!.getRandomData(), presenter!!.numberOfColumns )
-        myAdapter!!.setCallback(this)
-        recyclerView!!.adapter = myAdapter
+        mainAdapter = MainAdapter(context, presenter!!.getRandomData(), presenter!!.numberOfColumns )
+        mainAdapter!!.setCallback(this)
+        recyclerView!!.adapter = mainAdapter
         recyclerView!!.layoutManager = GridLayoutManager(activity, presenter!!.numberOfColumns)
     }
 
@@ -84,7 +84,7 @@ class MainFragment : Fragment(),MainFragmentView, MyHolder.callback {
             presenter!!.startTimer()
         }
 
-        if (step == 50) {
+        if (step == 5) {
             presenter!!.stopTimer()
             showYourScore(presenter!!.getGameResult())
             database.HistoryDAO().updateScores(History(database.HistoryDAO().getScoreList().size+ 1, Date().toString(), presenter!!.getGameResult()))
