@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import com.catdogcorp.myfirstkert.db.DatabaseTaskSync
 import com.catdogcorp.myfirstkert.db.History
 
@@ -25,14 +23,17 @@ class HistoryFragment : Fragment() ,DatabaseTaskSync.Callback{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_history, container, false)
+
         recyclerView = view.findViewById(R.id.history_recyclerView)
         DatabaseTaskSync(context, this).execute()
+        setHasOptionsMenu(true)
         return view
     }
 
@@ -41,8 +42,6 @@ class HistoryFragment : Fragment() ,DatabaseTaskSync.Callback{
         recyclerView!!.adapter = historyAdaper
         recyclerView!!.layoutManager = LinearLayoutManager(activity)
     }
-
-
 
 
     override fun onAttach(context: Context) {
@@ -55,6 +54,10 @@ class HistoryFragment : Fragment() ,DatabaseTaskSync.Callback{
 
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu?.clear()
+    }
 
     companion object {
 
@@ -64,4 +67,6 @@ class HistoryFragment : Fragment() ,DatabaseTaskSync.Callback{
                 HistoryFragment().apply {
                 }
     }
+
+
 }

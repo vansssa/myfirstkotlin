@@ -27,7 +27,7 @@ class MainFragmentPresenterIml(mainFragment : MainFragment) : MainFragmentPresen
     override fun startTimer() {
 
         timer = Timer(true)
-        timer!!.schedule(MyTimerTask(System.currentTimeMillis()), 0, 300)
+        timer!!.schedule(MyTimerTask(System.currentTimeMillis()), 0, 100)
     }
 
     override fun stopTimer() {

@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import com.catdogcorp.myfirstkert.db.History
 import com.catdogcorp.myfirstkert.db.HistoryDataBase
 import kotlinx.android.synthetic.main.main_fragment.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -33,6 +34,8 @@ class MainFragment : Fragment(),MainFragmentView, MainHolder.callback {
                 HistoryDataBase::class.java, "scores.db")
                 .allowMainThreadQueries()
                 .build()
+
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -41,6 +44,7 @@ class MainFragment : Fragment(),MainFragmentView, MainHolder.callback {
         var view = inflater!!.inflate(R.layout.main_fragment, container, false)
         recyclerView = view!!.findViewById(R.id.card_view)
         initRecyclerView()
+        //setUI()
         return view
     }
 
@@ -56,6 +60,10 @@ class MainFragment : Fragment(),MainFragmentView, MainHolder.callback {
         super.onDetach()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -84,10 +92,11 @@ class MainFragment : Fragment(),MainFragmentView, MainHolder.callback {
             presenter!!.startTimer()
         }
 
-        if (step == 5) {
+        if (step == 50) {
             presenter!!.stopTimer()
             showYourScore(presenter!!.getGameResult())
-            database.HistoryDAO().updateScores(History(database.HistoryDAO().getScoreList().size+ 1, Date().toString(), presenter!!.getGameResult()))
+            var formatter = SimpleDateFormat("yyyy.MM.dd 'at' HH:mm:ss aa")
+            database.HistoryDAO().updateScores(History(database.HistoryDAO().getScoreList().size+ 1, formatter.format(Date()), presenter!!.getGameResult()))
         }
     }
 
@@ -116,4 +125,8 @@ class MainFragment : Fragment(),MainFragmentView, MainHolder.callback {
         tx_result2.visibility = View.INVISIBLE
 
     }
+
+    //fun setUI(){
+    //    targetFragment.activity.actionBar.title = "LittleGameByKotlin"
+    //}
 }// Required empty public constructor

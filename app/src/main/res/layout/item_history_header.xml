@@ -8,23 +8,23 @@
     <TextView
         android:id="@+id/tx_no"
         android:layout_width="30dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/listview_border"
-        android:text="no." />
+        android:layout_height="match_parent"
+        android:background="@drawable/listview_header"
+        android:text="No." />
 
     <TextView
         android:id="@+id/tx_spend_time"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/listview_border"
-        android:text="time" />
+        android:background="@drawable/listview_header"
+        android:text="Time" />
 
     <TextView
         android:id="@+id/tx_play_datetime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="@drawable/listview_border"
-        android:text="date" />
+        android:background="@drawable/listview_header"
+        android:text="Date" />
 
 </LinearLayout>

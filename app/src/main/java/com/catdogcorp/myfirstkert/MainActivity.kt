@@ -11,7 +11,6 @@ import com.idescout.sql.SqlScoutServer
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-
 class MainActivity : AppCompatActivity() {
 
     lateinit var fragmentView: MainFragment
@@ -34,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         if (!fragmentView.isAdded) {
             supportFragmentManager.inTransaction {
-                add(R.id.main_fragment, fragmentView, "mainFragment")
+                add(R.id.main_fragment, fragmentView, "mainFragment").addToBackStack(null)
             }
         }
     }
@@ -72,8 +71,10 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.inTransaction {
             if(fragmentView.isAdded)
                 hide(fragmentView)
-            add(R.id.main_fragment,  historyFragment , "HistoryFragment")
+            add(R.id.main_fragment,  historyFragment , "HistoryFragment").addToBackStack(null)
 
         }
     }
+
+
 }
