@@ -16,7 +16,7 @@ class HistoryAdapter (var context: Context, var dataList: ArrayList<History>) : 
         var inflater = parent!!.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         var holder : RecyclerView.ViewHolder? = null
         if(viewType == TYPE_NORMAL)
-            holder = HistoryHolder(inflater.inflate(R.layout.item_history, parent, false), dataList)
+            holder = HistoryHolder(inflater.inflate(R.layout.item_history, parent, false))
         if(viewType == TYPE_HEADER)
             holder = HistoryHolder(inflater.inflate(R.layout.item_history_header,parent,false))
         return holder!!
@@ -31,7 +31,7 @@ class HistoryAdapter (var context: Context, var dataList: ArrayList<History>) : 
         if(getItemViewType(position) == TYPE_HEADER)
             return
 
-        (holder as HistoryHolder).initContent(dataList.get(position-1))
+        (holder as HistoryHolder).initContent(dataList[position-1])
     }
 
     override fun getItemCount(): Int {
